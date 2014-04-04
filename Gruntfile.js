@@ -25,7 +25,7 @@ module.exports = function (grunt) {
     'use strict';
 
     // load dependencies
-    require('load-grunt-tasks')(grunt, {pattern: ['grunt-contrib-*', 'grunt-targethtml', 'grunt-usemin']});
+    require('load-grunt-tasks')(grunt, {pattern: ['grunt-contrib-*', 'grunt-targethtml', 'grunt-usemin', 'grunt-jslint']});
     grunt.loadTasks('tasks');
 
     var common = require("./tasks/lib/common")(grunt);
@@ -289,6 +289,23 @@ module.exports = function (grunt) {
             /* use strict options to mimic JSLINT until we migrate to JSHINT in Brackets */
             options: {
                 jshintrc: '.jshintrc'
+            }
+        },
+        jslint: {
+            client: {
+                src: ['*.js', 'src/**/*.js'],
+                exclude: ['src/thirdparty/*', 'src/widgets/*'],
+                directives: {
+                    "vars":     true,
+                    "plusplus": true,
+                    "devel":    true,
+                    "nomen":    true,
+                    "maxerr":   50
+                },
+                options: {
+                    errorsOnly: false, // only display errors
+                    failOnError: false, // defaults to true
+                }
             }
         },
         shell: {
